@@ -88,11 +88,11 @@ import logger from '../../app/utils/logger-instance' // Adjusted path
 import {
     DEFAULT_LIMIT_VALUES,
     API_ERROR_MESSAGE,
-    MAX_CACHE_AGE,
+    MAX_CACHE_AGE, 
     TOAST_ACTION_VIEW_WISHLIST,
     TOAST_MESSAGE_ADDED_TO_WISHLIST,
     TOAST_MESSAGE_REMOVED_FROM_WISHLIST,
-    STALE_WHILE_REVALIDATE,
+    STALE_WHILE_REVALIDATE, 
     PRODUCT_LIST_IMAGE_VIEW_TYPE,
     PRODUCT_LIST_SELECTABLE_ATTRIBUTE_ID
 } from '../../app/constants' // Adjusted path
@@ -148,7 +148,7 @@ const SearchPage = ({ productSearchResult: initialProductSearchResult, searchQue
 
     // For a general search page, categoryId is usually not a direct route param.
     // It might be part of refinements if searching within a category.
-    // const categoryId = router.query.categoryId as string;
+    // const categoryId = router.query.categoryId as string; 
     // If category context is needed from refinements, it should be extracted from productSearchResult.selectedRefinements.cgid
     const categoryId = initialProductSearchResult?.selectedRefinements?.cgid || null;
 
@@ -433,9 +433,9 @@ const SearchPage = ({ productSearchResult: initialProductSearchResult, searchQue
                 }
                 dataCloud.sendViewSearchResults(router.query, productSearchResult) // Use router.query
                 activeData.sendViewSearch(router.query, productSearchResult) // Use router.query
-            }
+            } 
             // Removed category specific Einstein calls for a general search page
-            // else {
+            // else { 
             //     try {
             //         einstein.sendViewCategory(category, productSearchResult)
             //     } catch (err) {
@@ -823,14 +823,14 @@ export async function getServerSideProps(context) {
         'Cache-Control',
         `s-maxage=${MAX_CACHE_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}`
     );
-
+    
     const searchParamsForSDK = {
         q: searchQuery,
         ...getFilters(otherQueryParams), // Use getFilters to process query params for SDK
         // expand: ['availability', 'promotions', 'options', 'images', 'prices', 'variations', 'page_meta_tags', 'custom_properties'], // Standard expand
         // perPricebook: true, // Standard param
     };
-
+    
     // --- Fallback: Simulate API call with mock data ---
     const mockProductSearchResult = {
         hits: searchQuery ? [ // Only return hits if there's a search query
@@ -845,12 +845,12 @@ export async function getServerSideProps(context) {
         pageDescription: `Search results for ${searchQuery}`,
         pageKeywords: `search, ${searchQuery}`,
     };
-
+    
     if (!searchQuery) {
         mockProductSearchResult.pageTitle = formatMessage({defaultMessage: "Search"}); // Needs access to formatMessage or pass static string
         mockProductSearchResult.pageDescription = formatMessage({defaultMessage: "Enter a search term to find products."});
     }
-
+    
     if (searchQuery === 'error') {
         return {props: {productSearchResult: null, searchQuery, error: {message: "Simulated server-side search error"}}};
 }

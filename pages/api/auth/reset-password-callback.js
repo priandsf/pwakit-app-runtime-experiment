@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         // Determine the landing path and Marketing Cloud template from environment variables
         const landingPath = process.env.RESET_PASSWORD_LANDING_PATH;
         const emailTemplate = process.env.MARKETING_CLOUD_RESET_PASSWORD_TEMPLATE;
-
+        
         if (!landingPath || !emailTemplate) {
             console.error('Reset password landing path or email template environment variables are not set.');
             return res.status(500).json({ error: 'Reset password configuration is incomplete.' });

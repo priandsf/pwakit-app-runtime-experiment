@@ -27,9 +27,7 @@ export const fetchTranslations = async (locale, origin) => {
             : locale
 
     try {
-        const file = `${origin || getAppOrigin()}${getAssetUrl(
-            `static/translations/compiled/${targetLocale}.json`
-        )}`
+        const file = `${origin || getAppOrigin()}/translations/compiled/${targetLocale}.json`
         const response = await fetch(file)
 
         if (!response.ok) {

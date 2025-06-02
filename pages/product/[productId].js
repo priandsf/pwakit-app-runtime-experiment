@@ -90,7 +90,7 @@ const ProductDetailPage = ({ product: initialProduct, category: initialCategory,
     // Product and category data are now passed as props from getServerSideProps
     const product = initialProduct
     const category = initialCategory
-    const currentProductId = pid || routeProductId;
+    const currentProductId = pid || routeProductId; 
 
     // const { // Removed useProduct hook
     //     data: product,
@@ -192,12 +192,12 @@ const ProductDetailPage = ({ product: initialProduct, category: initialCategory,
         console.error(`SSR Error: ${ssrError.message}`);
         if (ssrError.is404) {
             // This is a conceptual check; actual 404 is handled by Next.js via notFound: true
-            return <Box>Product Not Found (SSR)</Box>;
+            return <Box>Product Not Found (SSR)</Box>; 
         }
         // return <Box>Error loading product (SSR)</Box>; // Or a more generic error component
     }
     // Client-side error logging for category if it's still fetched client-side (though it's passed as prop now)
-    // if (isCategoryError) {
+    // if (isCategoryError) { 
     //     const errorStatus = categoryError?.response?.status;
     //     console.error(`Category fetch error: ${errorStatus}`);
     // }
@@ -468,7 +468,7 @@ const ProductDetailPage = ({ product: initialProduct, category: initialCategory,
     const isProductLoadingFinal = !product && !ssrError; // Simpler check: if no product and no SSR error, it's loading or missing
 
     // Render loading skeletons or basic structure if product data is not yet available
-    if (isProductLoadingFinal) {
+    if (isProductLoadingFinal) { 
         return (
             <Box className="sf-product-detail-page" layerStyle="page" data-testid="product-details-page-loading">
                 <Stack spacing={16}>
@@ -689,7 +689,7 @@ export async function getServerSideProps(context) {
     if (productId === 'notfound') { // Simulate a product not found scenario
         return {notFound: true};
     }
-
+    
     const mockProduct = {
         id: productId,
         name: `Product ${productId}`,
@@ -712,7 +712,7 @@ export async function getServerSideProps(context) {
         parentCategoryTree: [{id: 'parent-cat', name: 'Parent Category'}]
         // Add other fields Breadcrumbs and other components expect
     };
-
+    
     // Simulate an error for a specific productId for testing
     if (productId === 'error') {
         return {props: {product: null, category: null, error: {message: "Simulated server-side fetch error", is404: false}}};

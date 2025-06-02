@@ -1,9 +1,71 @@
 /** @type {import('next').NextConfig} */
 
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/, // Apply to all http/https requests for a broad NetworkFirst
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'network-first',
+        networkTimeoutSeconds: 10,
+        expiration: {
+          maxEntries: 200,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+        cacheableResponse: {
+          statuses: [0, 200], // Cache opaque responses and successful responses
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:png|gif|jpg|jpeg|svg|webp)$/, // Cache images
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'images',
+        expiration: {
+          maxEntries: 60,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:js|css)$/, // Cache JS and CSS files
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-resources',
+        expiration: {
+          maxEntries: 60,
+          maxAgeSeconds: 24 * 60 * 60, // 1 Day
+        },
+      },
+    },
+    // Example: Caching Google Fonts (if used)
+    // {
+    //   urlPattern: /^https:\/\/fonts.googleapis.com\/.*/,
+    //   handler: 'CacheFirst',
+    //   options: {
+    //     cacheName: 'google-fonts-stylesheets',
+    //   },
+    // },
+    // {
+    //   urlPattern: /^https:\/\/fonts.gstatic.com\/.*/,
+    //   handler: 'CacheFirst',
+    //   options: {
+    //     cacheName: 'google-fonts-webfonts',
+    //     expiration: {
+    //       maxEntries: 30,
+    //       maxAgeSeconds: 365 * 24 * 60 * 60, // 1 Year
+    //     },
+    //   },
+    // },
+  ],
+});
+
 // Define Content Security Policy
-// Added 'self' to most directives for local resources.
-// Added data: for img-src and font-src for inline data.
-// 'unsafe-eval' and 'unsafe-inline' are often needed for dev and some libraries, review for production.
 const ContentSecurityPolicy = `
   default-src 'self';
   img-src 'self' *.commercecloud.salesforce.com data:;
@@ -56,4 +118,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withPWA(nextConfig);

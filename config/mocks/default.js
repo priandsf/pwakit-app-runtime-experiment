@@ -113,8 +113,8 @@ module.exports = {
     // This list determines which files are available to the server-side rendering system
     // and available through the /mobify/bundle/ path.
     ssrShared: [
-        'static/ico/favicon.ico',
-        'static/robots.txt',
+        'public/favicon.ico', // Updated path
+        'public/robots.txt', // Updated path
         '**/*.js',
         '**/*.js.map',
         '**/*.json'

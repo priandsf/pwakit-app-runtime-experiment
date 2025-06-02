@@ -18,8 +18,8 @@ const getOutputFolder = () => {
     const extendsTemplate = pkgJSON.ccExtensibility?.extends
     const outputFolder =
         overridesDir && extendsTemplate
-            ? path.join(overridesDir, 'app/static/translations/compiled')
-            : 'app/static/translations/compiled'
+            ? path.join(overridesDir, 'public/translations/compiled') // Updated path
+            : 'public/translations/compiled' // Updated path
 
     return outputFolder
 }

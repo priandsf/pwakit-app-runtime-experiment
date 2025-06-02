@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
     try {
         // Construct the JWKS URI
-        // Note: The organization ID in the URI uses 'f_ecom_' prefix.
+        // Note: The organization ID in the URI uses 'f_ecom_' prefix. 
         // The tenantId parameter from the path is typically the part after 'f_ecom_'.
         const JWKS_URI = `https://${shortCode}.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/f_ecom_${tenantId}/oauth2/jwks`;
 

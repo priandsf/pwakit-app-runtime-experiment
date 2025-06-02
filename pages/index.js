@@ -43,8 +43,8 @@ import useDataCloud from '../../app/hooks/use-datacloud' // Adjusted path
 import {
     HOME_SHOP_PRODUCTS_CATEGORY_ID,
     HOME_SHOP_PRODUCTS_LIMIT,
-    MAX_CACHE_AGE,
-    STALE_WHILE_REVALIDATE
+    MAX_CACHE_AGE, 
+    STALE_WHILE_REVALIDATE 
 } from '../../app/constants' // Adjusted path
 // import {useServerContext} from '@salesforce/pwa-kit-react-sdk/ssr/universal/hooks'
 // import {useProductSearch} from '@salesforce/commerce-sdk-react' // Removed: will be fetched in getServerSideProps
@@ -356,7 +356,7 @@ export async function getServerSideProps(context) {
             }
         ],
         // Add other top-level fields like 'total', 'refinements', 'sortingOptions' if needed by the component
-        total: 3
+        total: 3 
     };
 
     // In a real scenario, you would initialize the Salesforce Commerce SDK client here

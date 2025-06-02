@@ -133,7 +133,7 @@ export const createRemoteJWKSet = (tenantId) => {
     // Or if the pattern is very fixed: process.env.APP_ORIGIN_FOR_JWKS
     // For now, constructing based on common env vars, but this is sensitive.
     const appOrigin = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || 'http://localhost:3000'; // Fallback for local
-
+    
     const shortCode = process.env.COMMERCE_API_SHORT_CODE;
     const configTenantId = process.env.COMMERCE_API_ORGANIZATION_ID?.replace(/^f_ecom_/, '');
 
@@ -165,7 +165,7 @@ export const validateSlasCallbackToken = async (token) => {
         throwSlasTokenValidationError('Issuer claim format is incorrect.', 400);
     }
     const tenantId = tokens[2]; // e.g. f_ecom_zzrf_001 -> zzrf_001
-
+    
     try {
         const jwks = createRemoteJWKSet(tenantId);
         const {payload: verifiedPayload} = await jwtVerify(token, jwks, {}); // Rename to avoid conflict
@@ -177,7 +177,7 @@ export const validateSlasCallbackToken = async (token) => {
 };
 
 // --- JWKS Caching (Example, if needed directly in API routes, not typical for helpers) ---
-// This was part of app/ssr.js but is more of an endpoint itself.
+// This was part of app/ssr.js but is more of an endpoint itself. 
 // If you need a /jwks endpoint, it should be a separate API route.
 // For now, removing jwksCaching from here as it was an Express route handler.
 // If createRemoteJWKSet needs it, it should be self-contained or called by an endpoint.

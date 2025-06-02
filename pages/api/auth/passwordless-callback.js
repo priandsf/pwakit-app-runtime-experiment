@@ -21,7 +21,7 @@ export default async function handler(req, res) {
             console.error('Passwordless login landing path or email template environment variables are not set.');
             return res.status(500).json({ error: 'Passwordless login configuration is incomplete.' });
         }
-
+        
         // Send the magic link email
         // req (NextApiRequest) is passed to sendMagicLinkEmail to derive base URL and access body
         const emailResponse = await sendMagicLinkEmail(req, landingPath, emailTemplate, redirectUrl);

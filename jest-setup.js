@@ -115,12 +115,12 @@ afterAll(() => {
     global.server.close()
 })
 
-// Mock the application configuration to be used in all tests.
-jest.mock('@salesforce/pwa-kit-runtime/utils/ssr-config', () => {
-    return {
-        getConfig: () => mockConfig
-    }
-})
+// // Mock the application configuration to be used in all tests. // Removed PWA Kit getConfig mock
+// jest.mock('@salesforce/pwa-kit-runtime/utils/ssr-config', () => {
+//     return {
+//         getConfig: () => mockConfig
+//     }
+// })
 
 // TextEncoder is a web API, need to import it
 // from nodejs util in testing environment.
