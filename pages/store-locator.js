@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2021, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ */
+
+import React from 'react'
+import Head from 'next/head' // Using Next.js Head
+import {useIntl} from 'react-intl' // Import useIntl for translations
+
+// Components
+import {Box, Container} from '../../app/components/shared/ui' // Adjusted path
+// import Seo from '@salesforce/retail-react-app/app/components/seo' // Replaced by Head
+import StoreLocatorContent from '../../app/components/store-locator-modal/store-locator-content' // Adjusted path
+
+// Others
+import {
+    StoreLocatorContext, // This context will need to be available in Next.js
+    useStoreLocator // This hook needs to be Next.js compatible
+} from '../../app/components/store-locator-modal/index' // Adjusted path
+
+const StoreLocatorPage = () => { // Renamed component
+    const storeLocator = useStoreLocator() // Ensure this hook works in Next.js context
+    const intl = useIntl() // For translations in Head
+
+    return (
+        <StoreLocatorContext.Provider value={storeLocator}> {/* Ensure Context Provider works */}
+            <Head>
+                <title>{intl.formatMessage({id: 'store_locator.title', defaultMessage: 'Store Locator'})}</title>
+                <meta name="description" content={intl.formatMessage({id: 'store_locator.description', defaultMessage: 'Find a store near you.'})} />
+            </Head>
+            <Box data-testid="store-locator-page" bg="gray.50" py={[8, 16]}>
+                {/* <Seo title="Store Locator" description="Find a Store" /> */}
+                <Container
+                    overflowY="scroll"
+                    paddingTop={8}
+                    width={['90%']}
+                    bg="white"
+                    paddingBottom={14}
+                    marginTop={8}
+                    marginBottom={8}
+                    borderRadius="base"
+                >
+                    <StoreLocatorContent />
+                </Container>
+            </Box>
+        </StoreLocatorContext.Provider>
+    )
+}
+
+// StoreLocator.getTemplateName = () => 'store-locator' // Removed PWA Kit specific
+
+// StoreLocator.propTypes = {} // PropTypes not typically used in Next.js pages
+
+export default StoreLocatorPage // Exporting the renamed component
